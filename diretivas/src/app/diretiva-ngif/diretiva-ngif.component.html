@@ -1,6 +1,6 @@
 <h5>*ngIF</h5>
 
-<div *ngIf="mostrarCursos">
+<!-- <div *ngIf="mostrarCursos">
   Lista de Cursos aqui.
 </div>
 <div *ngIf="!mostrarCursos">
@@ -15,7 +15,16 @@
 
 <div [hidden]="!mostrarCursos">
     Lista de Cursos aqui.
-  </div>
-  <div [hidden]="mostrarCursos">
-    Não existem cursos para serem listados.
-  </div>
+</div>
+<div [hidden]="mostrarCursos">
+  Não existem cursos para serem listados.
+</div> -->
+
+<h5>Removendo o * e usando templates</h5>
+<div *ngIf="mostrarCursos">
+  Lista de Cursos aqui.
+</div>
+
+<div template="ngIf mostrarCursos">
+  Lista de Cursos aqui.
+</div>
