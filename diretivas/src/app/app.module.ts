@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 
@@ -8,6 +9,7 @@ import { TesteComponent } from './teste/teste.component';
 import { DiretivaNgswitchComponent } from './diretiva-ngswitch/diretiva-ngswitch.component';
 import { DiretivaNgforComponent } from './diretiva-ngfor/diretiva-ngfor.component';
 import { DiretivaNgclassComponent } from './diretiva-ngclass/diretiva-ngclass.component';
+import { DiretivaNgstyleComponent } from './diretiva-ngstyle/diretiva-ngstyle.component';
 
 
 @NgModule({
@@ -17,10 +19,12 @@ import { DiretivaNgclassComponent } from './diretiva-ngclass/diretiva-ngclass.co
     TesteComponent,
     DiretivaNgswitchComponent,
     DiretivaNgforComponent,
-    DiretivaNgclassComponent
+    DiretivaNgclassComponent,
+    DiretivaNgstyleComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
