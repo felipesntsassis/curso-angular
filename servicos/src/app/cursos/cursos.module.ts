@@ -14,8 +14,8 @@ import { CursosService } from '../cursos/cursos.service';
   exports: [
     CursosComponent
   ],
-  providers: [
-    CursosService
-  ]
+  // providers: [
+  //   CursosService
+  // ]
 })
 export class CursosModule { }
