@@ -7,3 +7,15 @@
 <p>Data Lançamento: {{ livro.dataLancamento | date }}</p>
 <p>Url: {{ livro.url }}</p>
 <p>Livro: {{ livro | json }}</p>
+
+<input type="text" #novoValor>
+<button type="button" (click)="addCurso(novoValor.value)">Add Curso</button>
+<br>
+<input type="text" [(ngModel)]="filtro" placeholder="Informe um filtro">
+
+
+<ul>
+  <li *ngFor="let liv of livros | filtroArray:filtro">
+    {{ liv }}
+  </li>
+</ul>
