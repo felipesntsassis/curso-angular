@@ -16,6 +16,7 @@ export class CursosService {
     for (let i = 1; i < cursos.length; i++) {
         const curso = cursos[i];
 
+      // tslint:disable-next-line:triple-equals
       if (curso.id == id) {
         return curso;
       }
