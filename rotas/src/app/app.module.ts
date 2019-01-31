@@ -9,17 +9,19 @@ import { LoginComponent } from './login/login.component';
 import { CursosService } from './cursos/cursos.service';
 import { AppRoutingModule } from './app.routing.module';
 import { CursosModule } from './cursos/cursos.module';
+import { AlunosModule } from './alunos/alunos.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
     MaterializeModule,
     CursosModule,
+    AlunosModule,
     AppRoutingModule
   ],
   providers: [
