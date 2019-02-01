@@ -3,8 +3,8 @@
 <div class="collection">
     <a href="#!" class="collection-item"
       *ngFor="let curso of cursos"
-      [routerLink]="['/curso', curso.id]">
+      [routerLink]="[curso.id]">
       {{ curso.nome }}
     </a>
 </div>
-<button (click)="proximaPagina()">Próx. Página</button>
+<button class="waves-effect waves-light btn" (click)="proximaPagina()">Próx. Página</button>
