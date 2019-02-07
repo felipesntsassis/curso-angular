@@ -8,7 +8,8 @@ export class AuthService {
   private usuarioAutenticado: Boolean = false;
   mostrarMenuEmmiter = new EventEmitter<boolean>();
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router) { }
 
   fazerLogin(usuario: Usuario) {
     if (usuario.nome === 'usuario@email.com' && usuario.senha === '123456') {
@@ -19,6 +20,10 @@ export class AuthService {
       this.usuarioAutenticado = false;
       this.mostrarMenuEmmiter.emit(false);
     }
+  }
+
+  usuarioEstaAutenticado() {
+    return this.usuarioAutenticado;
   }
 
 }
