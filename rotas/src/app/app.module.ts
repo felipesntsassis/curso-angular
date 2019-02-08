@@ -1,3 +1,4 @@
+import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { MaterializeModule } from '@samuelberthe/angular2-materialize';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -21,6 +22,7 @@ import { AlunosGuard } from './guard/alunos.guard';
     AppComponent,
     HomeComponent,
     LoginComponent,
+    PaginaNaoEncontradaComponent
   ],
   imports: [
     BrowserModule,
