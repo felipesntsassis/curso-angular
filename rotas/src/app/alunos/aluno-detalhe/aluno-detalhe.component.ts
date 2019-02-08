@@ -1,3 +1,4 @@
+import { Aluno } from './../aluno';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -22,10 +23,17 @@ export class AlunoDetalheComponent implements OnInit, OnDestroy {
     private alunosService: AlunosService) { }
 
   ngOnInit() {
-    this.inscricao = this.route.params.subscribe(
+    /*this.inscricao = this.route.params.subscribe(
       (params:  any) => {
         const id = params['id'];
         this.aluno = this.alunosService.getAluno(Number(id));
+      }
+    );*/
+    console.log('ngOnInit: AlunoDetalheComponent');
+    this.inscricao = this.route.data.subscribe(
+      (info: { aluno: Aluno }) => {
+        console.log('Retornando aluno do obj resolver');
+        this.aluno = info.aluno;
       }
     );
   }

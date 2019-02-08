@@ -8,6 +8,7 @@ export class AlunosGuard implements CanActivateChild {
   canActivateChild(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot) {
+    console.log('AlunosGuard');
     console.log(route);
     console.log(state);
 
