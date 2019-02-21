@@ -15,8 +15,8 @@ import { TemplateFormModule } from './template-form/template-form.module';
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule,
-    TemplateFormModule
+    TemplateFormModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
