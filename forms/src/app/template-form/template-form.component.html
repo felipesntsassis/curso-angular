@@ -1,16 +1,28 @@
-<form #f="ngForm" (ngSubmit)="onSubmit(f)" >
-  <div class="form-group">
-    <label for="nome">Nome</label>
+<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="needs-validation">
+  <div class="form-group"
+    [ngClass]="{
+      'was-validated': !nome.valid && nome.touched
+    }">
+    <label for="nome" class="control-label">Nome</label>
     <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome"
-      [(ngModel)]="usuario.nome" required #nome>
+      [(ngModel)]="usuario.nome" required #nome="ngModel">
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="!nome.valid && nome.touched" >
+    Nome é obrigatório
   </div>
 
-  <div class="form-group">
-    <label for="email">E-mail</label>
+  <div class="form-group"
+    [ngClass]="{
+      'was-validated': !email.valid && email.touched
+    }">
+    <label for="email" class="control-label">E-mail</label>
     <input type="email" class="form-control" id="email" name="email" placeholder="nome@email.com"
-      [(ngModel)]="usuario.email" required email>
+      [(ngModel)]="usuario.email" required email #email="ngModel">
       <!-- pattern="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"> -->
   </div>
+  <div class="alert alert-danger" role="alert" *ngIf="!email.valid && email.touched" >
+      E-mail é obrigatório
+    </div>
 
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
