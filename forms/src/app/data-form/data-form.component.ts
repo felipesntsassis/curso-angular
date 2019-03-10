@@ -9,6 +9,8 @@ import { ConsultaCepService } from './../shared/services/consulta-cep.service';
 import { DropdownService } from './../shared/services/dropdown.service';
 import { Cargo } from './../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
+import { Tecnologia } from './../shared/models/tecnologia';
+import { JSDocCommentStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-data-form',
@@ -19,6 +21,7 @@ export class DataFormComponent implements OnInit {
   formulario: FormGroup;
   estados: Observable<EstadoBr>;
   cargos: Cargo[];
+  tecnologias: Tecnologia[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,6 +33,7 @@ export class DataFormComponent implements OnInit {
   ngOnInit() {
     this.estados = this.dropdownService.getEstadosBr();
     this.cargos = this.dropdownService.getCargos();
+    this.tecnologias = this.dropdownService.getTecnologias();
     this.formulario = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -42,7 +46,8 @@ export class DataFormComponent implements OnInit {
         cidade: ['', Validators.required],
         estado: ['', Validators.required],
       }),
-      cargo: ['']
+      cargo: [''],
+      tecnologias: ['']
     });
   }
 
@@ -152,5 +157,9 @@ export class DataFormComponent implements OnInit {
 
   compararCargos(obj1, obj2) {
     return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 && obj2;
+  }
+
+  setarTecnologias() {
+    this.formulario.get('tecnologias').setValue(['java', 'javascript', 'php']);
   }
 }
