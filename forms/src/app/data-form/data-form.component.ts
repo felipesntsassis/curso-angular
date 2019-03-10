@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
 import { DropdownService } from './../shared/services/dropdown.service';
@@ -15,26 +16,18 @@ import { DropdownService } from './../shared/services/dropdown.service';
 })
 export class DataFormComponent implements OnInit {
   formulario: FormGroup;
-  estados: EstadoBr[];
-  urlViaCEP = 'https://viacep.com.br/ws';
-  headers: HttpHeaders;
+  // estados: EstadoBr[];
+  estados: Observable<EstadoBr>;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private cepService: ConsultaCepService,
     private dropdownService: DropdownService
-  ) {
-    this.headers = new HttpHeaders();
-    this.headers.append('Access-Control-Allow-Origin', this.urlViaCEP);
-    this.headers.append('Access-Control-Allow-Credentials', 'true');
-    this.headers.append('Access-Control-Allow-Methods', 'GET');
-    this.headers.append('Content-type', 'application/json; charset=utf-8');
-  }
+  ) { }
 
   ngOnInit() {
-    this.dropdownService.getEstadosBr()
-      .subscribe((dados: any) => this.estados = dados);
+    this.estados = this.dropdownService.getEstadosBr();
     this.formulario = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
