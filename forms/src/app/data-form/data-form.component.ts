@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { map } from 'rxjs/internal/operators/map';
 
@@ -12,11 +12,19 @@ import { map } from 'rxjs/internal/operators/map';
 export class DataFormComponent implements OnInit {
 
   formulario: FormGroup;
+  urlViaCEP = 'https://viacep.com.br/ws';
+  headers: HttpHeaders;
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient
-  ) { }
+  ) {
+    this.headers = new HttpHeaders();
+    this.headers.append('Access-Control-Allow-Origin', this.urlViaCEP);
+    this.headers.append('Access-Control-Allow-Credentials', 'true');
+    this.headers.append('Access-Control-Allow-Methods', 'GET');
+    this.headers.append('Content-type', 'application/json; charset=utf-8');
+  }
 
   ngOnInit() {
     // this.formulario = new FormGroup({
@@ -28,23 +36,18 @@ export class DataFormComponent implements OnInit {
     //   })
     // });
     this.formulario = this.formBuilder.group({
-      nome: [null, Validators.required],
-      email: [null, [Validators.required, Validators.email]],
+      nome: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       endereco: this.formBuilder.group({
-        cep: [null, Validators.required],
-        numero: [null],
-        complemento: [null],
-        rua: [null, Validators.required],
-        bairro: [null, Validators.required],
-        cidade: [null, Validators.required],
-        estado: [null, Validators.required]
+        cep: ['', Validators.required],
+        numero: ['', Validators.required],
+        complemento: [''],
+        rua: ['', Validators.required],
+        bairro: ['', Validators.required],
+        cidade: ['', Validators.required],
+        estado: ['', Validators.required]
       })
     });
-
-    // Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?");
-    // nome: [null, [
-    //   Validators.required, Validators.minLength(3), Validators.maxLength(20)
-    // ]],
   }
 
   verificaValidTouched(campo: string) {
@@ -61,8 +64,56 @@ export class DataFormComponent implements OnInit {
 
   aplicaErroCss(campo) {
     return {
-      'was-validated': this.verificaValidTouched(campo)
+      'is-invalid': this.verificaValidTouched(campo)
     };
+  }
+
+  aplicaErroCssCampo(campo) {
+    return {
+      'is-invalid': this.verificaValidTouched(campo)
+    };
+  }
+
+  consultaCep() {
+    let cep = this.formulario.get('endereco.cep').value;
+
+    if (cep !== '') {
+      cep = cep.replace(/\D/g, '');
+      const validaCep = /^[0-9]{8}$/;
+
+      if (validaCep.test(cep)) {
+        this.resetaDadosForm();
+        this.http.get(`${this.urlViaCEP}/${cep}/json`, { headers: this.headers })
+          .pipe(map(dados => dados))
+          .subscribe(dados => this.populaDadosForm(dados));
+      }
+    }
+  }
+
+  resetaDadosForm() {
+    this.formulario.patchValue({
+      endereco: {
+        cep: null,
+        complemento: null,
+        rua: null,
+        bairro: null,
+        cidade: null,
+        estado: null
+      }
+    });
+  }
+
+  populaDadosForm(dados) {
+    this.formulario.patchValue({
+      endereco: {
+        cep: dados.cep,
+        complemento: dados.complemento,
+        rua: dados.logradouro,
+        bairro: dados.bairro,
+        cidade: dados.localidade,
+        estado: dados.uf
+      }
+    });
   }
 
   onSubmit() {
