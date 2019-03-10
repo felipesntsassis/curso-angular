@@ -1,13 +1,14 @@
-import { ConsultaCepService } from './../shared/services/consulta-cep.service';
-import { EstadoBr } from '../shared/models/estado-br';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators/map';
 
+import { ConsultaCepService } from './../shared/services/consulta-cep.service';
 import { DropdownService } from './../shared/services/dropdown.service';
+import { Cargo } from './../shared/models/cargo';
+import { EstadoBr } from '../shared/models/estado-br';
 
 @Component({
   selector: 'app-data-form',
@@ -16,8 +17,8 @@ import { DropdownService } from './../shared/services/dropdown.service';
 })
 export class DataFormComponent implements OnInit {
   formulario: FormGroup;
-  // estados: EstadoBr[];
   estados: Observable<EstadoBr>;
+  cargos: Cargo[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +29,7 @@ export class DataFormComponent implements OnInit {
 
   ngOnInit() {
     this.estados = this.dropdownService.getEstadosBr();
+    this.cargos = this.dropdownService.getCargos();
     this.formulario = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -38,15 +40,17 @@ export class DataFormComponent implements OnInit {
         rua: ['', Validators.required],
         bairro: ['', Validators.required],
         cidade: ['', Validators.required],
-        estado: ['', Validators.required]
-      })
+        estado: ['', Validators.required],
+      }),
+      cargo: ['']
     });
   }
 
   verificaValidTouched(campo: string) {
     return (
-      !this.formulario.get(campo).valid &&
-      (this.formulario.get(campo).touched || this.formulario.get(campo).dirty)
+      this.formulario.get(campo) &&
+      (!this.formulario.get(campo).valid &&
+      (this.formulario.get(campo).touched || this.formulario.get(campo).dirty))
     );
   }
 
@@ -139,5 +143,14 @@ export class DataFormComponent implements OnInit {
 
   resetar() {
     this.formulario.reset();
+  }
+
+  setarCargo() {
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
+    this.formulario.get('cargo').setValue(cargo);
+  }
+
+  compararCargos(obj1, obj2) {
+    return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 && obj2;
   }
 }

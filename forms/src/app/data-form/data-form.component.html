@@ -80,9 +80,22 @@
     </div>
   </div>
 
+  <div class="form-group row">
+    <div class="col-md-3">
+      <label for="cargo" class="col-form-label">Cargo</label>
+      <select id="cargo" formControlName="cargo" class="form-control"
+        [ngClass]="aplicaErroCssCampo('cargo')"
+        [compareWith]="compararCargos">
+        <option *ngFor="let cargo of cargos" [ngValue]="cargo">{{ cargo.desc }}</option>
+      </select>
+      <app-campo-control-error [mostrarErro]="verificaValidTouched('cargo')" msgErro="Cargo é obrigatório.">
+        </app-campo-control-error>
+    </div>
+  </div>
+
   <button class="btn btn-primary">Submit</button>
-  &nbsp;
   <button type="button" class="btn btn-light" (click)="resetar()">Cancelar</button>
+  <button type="button" class="btn btn-primary" (click)="setarCargo()">Cargo</button>
 
   <app-form-debug [formulario]="formulario"></app-form-debug>
 </form>
