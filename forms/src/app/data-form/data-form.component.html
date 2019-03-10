@@ -49,7 +49,7 @@
     <div class="form-group row">
         <div class="col-12">
         <label for="rua" class="col-form-label">Rua</label>
-          <input type="text" id="rua" formControlName="rua" class="form-control" readonly
+          <input type="text" id="rua" formControlName="rua" class="form-control"
             [ngClass]="aplicaErroCssCampo('endereco.rua')">
           <app-campo-control-error [mostrarErro]="verificaValidTouched('endereco.rua')" msgErro="Rua é obrigatório.">
             </app-campo-control-error>
@@ -58,20 +58,20 @@
     <div class="form-group row">
       <div class="col-md-5" [ngClass]="aplicaErroCss('endereco.bairro')">
         <label for="bairro" class="col-form-label">Bairro</label>
-        <input type="text" id="bairro" formControlName="bairro" class="form-control" readonly>
+        <input type="text" id="bairro" formControlName="bairro" class="form-control" >
         <app-campo-control-error [mostrarErro]="verificaValidTouched('endereco.bairro')" msgErro="Bairro é obrigatório.">
           </app-campo-control-error>
       </div>
       <div class="col-md-4">
         <label for="cidade" class="col-form-label">Cidade</label>
-        <input type="text" id="cidade" formControlName="cidade" class="form-control" readonly
+        <input type="text" id="cidade" formControlName="cidade" class="form-control"
           [ngClass]="aplicaErroCssCampo('endereco.cidade')">
         <app-campo-control-error [mostrarErro]="verificaValidTouched('endereco.cidade')" msgErro="Cidade é obrigatório.">
           </app-campo-control-error>
       </div>
       <div class="col-md-3">
         <label for="estado" class="col-form-label">Estado</label>
-        <input type="text" id="estado" formControlName="estado" class="form-control" readonly
+        <input type="text" id="estado" formControlName="estado" class="form-control"
           [ngClass]="aplicaErroCssCampo('endereco.estado')">
         <app-campo-control-error [mostrarErro]="verificaValidTouched('endereco.estado')" msgErro="Estado é obrigatório.">
           </app-campo-control-error>
