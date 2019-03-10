@@ -10,7 +10,6 @@ import { DropdownService } from './../shared/services/dropdown.service';
 import { Cargo } from './../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
 import { Tecnologia } from './../shared/models/tecnologia';
-import { JSDocCommentStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-data-form',
@@ -22,6 +21,7 @@ export class DataFormComponent implements OnInit {
   estados: Observable<EstadoBr>;
   cargos: Cargo[];
   tecnologias: Tecnologia[];
+  newsLetterOp: any[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,6 +34,8 @@ export class DataFormComponent implements OnInit {
     this.estados = this.dropdownService.getEstadosBr();
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnologias();
+    this.newsLetterOp = this.dropdownService.getNewsLetter();
+
     this.formulario = this.formBuilder.group({
       nome: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -46,8 +48,9 @@ export class DataFormComponent implements OnInit {
         cidade: ['', Validators.required],
         estado: ['', Validators.required],
       }),
-      cargo: [''],
-      tecnologias: ['']
+      cargo: [null],
+      tecnologias: [null],
+      newsletter: ['s']
     });
   }
 

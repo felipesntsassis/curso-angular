@@ -104,12 +104,25 @@
     </div>
 
     <div class="col-md-3">
-      <label for="tecnologias" class="col-form-label">tecnologias</label>
+      <label for="tecnologias" class="col-form-label">Tecnologias</label>
       <select id="tecnologias" formControlName="tecnologias" class="form-control"
         [ngClass]="aplicaErroCssCampo('tecnologias')"
         multiple>
         <option *ngFor="let tecnologia of tecnologias" [ngValue]="tecnologia.nome">{{ tecnologia.desc }}</option>
       </select>
+    </div>
+
+    <div class="col-md-3">
+      <label for="newsletter" class="col-form-label">Newsletter</label>
+      <div id="newsletter" class="row">
+        <div class="col-12">
+          <div class="custom-control custom-radio custom-control-inline" *ngFor="let item of newsLetterOp" >
+            <input type="radio" id="newsletter{{ item.valor }}" formControlName="newsletter"
+              [value]="item.valor" class="custom-control-input">
+            <label class="custom-control-label" for="newsletter{{ item.valor }}">{{ item.desc }}</label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
