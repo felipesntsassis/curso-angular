@@ -17,7 +17,6 @@ import { DropdownService } from './services/dropdown.service';
   imports: [
     CommonModule,
     HttpClientModule
-  ],
-  providers: [DropdownService]
+  ]
 })
 export class SharedModule { }

@@ -1,3 +1,4 @@
+import { ConsultaCepService } from './../shared/services/consulta-cep.service';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -17,7 +18,10 @@ export class TemplateFormComponent implements OnInit {
   urlViaCEP = 'https://viacep.com.br/ws';
   headers: HttpHeaders;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private cepService: ConsultaCepService
+  ) {
     this.headers = new HttpHeaders();
     this.headers.append('Access-Control-Allow-Origin', this.urlViaCEP);
     this.headers.append('Access-Control-Allow-Credentials', 'true');
@@ -47,17 +51,8 @@ export class TemplateFormComponent implements OnInit {
 
   consultaCep(cep, form) {
     cep = cep.replace(/\D/g, '');
-
-    if (cep !== '') {
-      const validaCep = /^[0-9]{8}$/;
-
-      if (validaCep.test(cep)) {
-        this.resetaDadosForm(form);
-        this.http.get(`${this.urlViaCEP}/${cep}/json`, { headers: this.headers })
-          .pipe(map(dados => dados))
-          .subscribe(dados => this.populaDadosForm(dados, form));
-      }
-    }
+    this.cepService.consultaCep(cep)
+      .subscribe(dados => this.populaDadosForm(dados, form));
   }
 
   populaDadosForm(dados, formulario) {
