@@ -39,13 +39,14 @@
         <input type="text" id="numero" formControlName="numero" class="form-control"
           [ngClass]="aplicaErroCssCampo('endereco.numero')">
         <app-campo-control-error [mostrarErro]="verificaValidTouched('endereco.numero')" msgErro="Número é obrigatório.">
-          </app-campo-control-error>
+        </app-campo-control-error>
       </div>
       <div class="col-md-6">
           <label for="complemento" class="col-form-label">Complemento</label>
           <input type="text" id="complemento" formControlName="complemento" class="form-control">
       </div>
     </div>
+
     <div class="form-group row">
         <div class="col-12">
         <label for="rua" class="col-form-label">Rua</label>
@@ -55,6 +56,7 @@
             </app-campo-control-error>
         </div>
     </div>
+
     <div class="form-group row">
       <div class="col-md-5" [ngClass]="aplicaErroCss('endereco.bairro')">
         <label for="bairro" class="col-form-label">Bairro</label>
@@ -123,6 +125,18 @@
           </div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <div class="col-md-3">
+
+      <div class="custom-control custom-checkbox" [ngClass]="aplicaErroCss('termos')">
+        <input type="checkbox" class="custom-control-input" [ngClass]="aplicaErroCssCampo('termos')"  id="termos" formControlName="termos">
+        <label class="custom-control-label" for="termos">Aceito os termos.</label>
+      </div>
+      <app-campo-control-error [mostrarErro]="verificaValidTouched('termos')" msgErro="Por favor, aceite os termos.">
+      </app-campo-control-error>
     </div>
   </div>
 
