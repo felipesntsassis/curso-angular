@@ -130,13 +130,23 @@
 
   <div class="form-group row">
     <div class="col-md-3">
-
       <div class="custom-control custom-checkbox" [ngClass]="aplicaErroCss('termos')">
         <input type="checkbox" class="custom-control-input" [ngClass]="aplicaErroCssCampo('termos')"  id="termos" formControlName="termos">
         <label class="custom-control-label" for="termos">Aceito os termos.</label>
       </div>
       <app-campo-control-error [mostrarErro]="verificaValidTouched('termos')" msgErro="Por favor, aceite os termos.">
       </app-campo-control-error>
+    </div>
+    <div class="col-md-3">
+      <label for="frameworks" class="col-form-label">Frameworks</label>
+      <div id="frameworks" class="row">
+        <div class="col-12" formArrayName="frameworks" *ngFor="let item of formulario.get('frameworks').controls; let i = index" >
+          <div class="custom-control custom-checkbox custom-control-inline" [ngClass]="aplicaErroCss('frameworks')">
+            <input type="checkbox" id="frameworks-{{ i }}" [formControlName]="i" class="custom-control-input" [ngClass]="aplicaErroCssCampo('frameworks')">
+            <label class="custom-control-label" for="frameworks-{{ i }}">{{ frameworks[i] }}</label>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
