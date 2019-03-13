@@ -140,11 +140,15 @@
     <div class="col-md-3">
       <label for="frameworks" class="col-form-label">Frameworks</label>
       <div id="frameworks" class="row">
-        <div class="col-12" formArrayName="frameworks" *ngFor="let item of formulario.get('frameworks').controls; let i = index" >
-          <div class="custom-control custom-checkbox custom-control-inline" [ngClass]="aplicaErroCss('frameworks')">
-            <input type="checkbox" id="frameworks-{{ i }}" [formControlName]="i" class="custom-control-input" [ngClass]="aplicaErroCssCampo('frameworks')">
-            <label class="custom-control-label" for="frameworks-{{ i }}">{{ frameworks[i] }}</label>
+        <div class="col-12">
+          <div formArrayName="frameworks" *ngFor="let item of formulario.get('frameworks').controls; let i = index" >
+            <div class="custom-control custom-checkbox custom-control-inline" [ngClass]="aplicaErroCss('frameworks')">
+              <input type="checkbox" id="frameworks-{{ i }}" [formControlName]="i" class="custom-control-input" [ngClass]="aplicaErroCssCampo('frameworks')">
+              <label class="custom-control-label" for="frameworks-{{ i }}">{{ frameworks[i] }}</label>
+            </div>
           </div>
+          <app-campo-control-error [mostrarErro]="verificaValidTouched('frameworks')" msgErro="Selecione pelo menos uma opção.">
+          </app-campo-control-error>
         </div>
       </div>
     </div>
