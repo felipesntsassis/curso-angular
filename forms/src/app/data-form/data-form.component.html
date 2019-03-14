@@ -20,7 +20,19 @@
         [ngClass]="aplicaErroCssCampo('email')">
       <app-campo-control-error [mostrarErro]="verificaValidTouched('email')" msgErro="E-mail é obrigatório.">
       </app-campo-control-error>
-      <app-campo-control-error [mostrarErro]="verificaEmailInvalido()" msgErro="E-mail inválido.">
+      <app-campo-control-error [mostrarErro]="verificaEmailInvalido('email')" msgErro="E-mail inválido.">
+      </app-campo-control-error>
+    </div>
+  </div>
+  <div class="form-group row">
+    <div class="col-12">
+      <label for="email" class="col-form-label">Confirmar E-mail</label>
+    </div>
+    <div class="col-12">
+      <input type="email" class="form-control" id="confirmarEmail" formControlName="confirmarEmail" placeholder="nome@email.com"
+        [ngClass]="aplicaErroCssCampo('confirmarEmail')">
+      <app-campo-control-error [mostrarErro]="formulario.get('confirmarEmail').hasError('equalsToInvalid')"
+        msgErro="E-mails não são iguais.">
       </app-campo-control-error>
     </div>
   </div>

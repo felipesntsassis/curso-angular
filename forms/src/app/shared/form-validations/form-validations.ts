@@ -1,4 +1,5 @@
-import { FormArray, FormControl } from '@angular/forms';
+import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { formControlBinding } from '@angular/forms/src/directives/ng_model';
 
 export class FormValidations {
 
@@ -33,5 +34,31 @@ export class FormValidations {
       return validaCep.test(cep) ? null : { cepInvalido: true };
     }
     return null;
+  }
+
+  static equalsTo(otherField: string) {
+    const validator = (control: FormControl) => {
+      if (otherField === null || otherField === undefined) {
+        throw new Error('É necessário informar um campo.');
+      }
+
+      if (!control.root || !(control.root as FormGroup).get(otherField)) {
+        return null;
+      }
+
+      const field = (control.root as FormGroup).get(otherField);
+
+      if (!field) {
+        throw Error('É necessário informar um campo válido');
+      }
+
+      if (field.value !== control.value) {
+        return { equalsToInvalid: otherField };
+      }
+
+      return null;
+    };
+
+    return validator;
   }
 }
