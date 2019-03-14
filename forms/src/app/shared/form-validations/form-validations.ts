@@ -1,4 +1,4 @@
-import { FormArray } from '@angular/forms';
+import { FormArray, FormControl } from '@angular/forms';
 
 export class FormValidations {
 
@@ -21,5 +21,17 @@ export class FormValidations {
     };
 
     return validator;
+  }
+
+  static cepValidator(control: FormControl) {
+    let cep = control.value;
+    cep = cep.replace(/\D/g, '');
+
+    if (cep && cep !== '') {
+      const validaCep = /^[0-9]{8}$/;
+
+      return validaCep.test(cep) ? null : { cepInvalido: true };
+    }
+    return null;
   }
 }
