@@ -11,6 +11,7 @@ import { FormValidations } from '../shared/form-validations/form-validations';
 import { Cargo } from './../shared/models/cargo';
 import { EstadoBr } from '../shared/models/estado-br';
 import { Tecnologia } from './../shared/models/tecnologia';
+import { VerificaEmailService } from './services/verifica-email.service';
 
 @Component({
   selector: 'app-data-form',
@@ -29,10 +30,12 @@ export class DataFormComponent implements OnInit {
     private formBuilder: FormBuilder,
     private http: HttpClient,
     private cepService: ConsultaCepService,
-    private dropdownService: DropdownService
+    private dropdownService: DropdownService,
+    private verificaEmailService: VerificaEmailService
   ) { }
 
   ngOnInit() {
+    // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
     this.estados = this.dropdownService.getEstadosBr();
     this.cargos = this.dropdownService.getCargos();
     this.tecnologias = this.dropdownService.getTecnologias();
@@ -40,7 +43,7 @@ export class DataFormComponent implements OnInit {
 
     this.formulario = this.formBuilder.group({
       nome: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      email: ['', [Validators.required, Validators.email], [this.verificarEmail.bind(this)]],
       confirmarEmail: ['', [Validators.required, Validators.email, FormValidations.equalsTo('email')]],
       endereco: this.formBuilder.group({
         cep: ['', [Validators.required, FormValidations.cepValidator]],
@@ -197,5 +200,12 @@ export class DataFormComponent implements OnInit {
 
   setarTecnologias() {
     this.formulario.get('tecnologias').setValue(['java', 'javascript', 'php']);
+  }
+
+  verificarEmail(formControl: FormControl) {
+    return this.verificaEmailService.verificarEmail(formControl.value)
+      .pipe(
+        map((emailExiste) => emailExiste ? { emailInvalido: true } : null)
+      );
   }
 }
