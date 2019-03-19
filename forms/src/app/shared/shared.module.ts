@@ -4,15 +4,18 @@ import { CampoControlErrorComponent } from './campo-control-error/campo-control-
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DropdownService } from './services/dropdown.service';
+import { ErrorMsgComponent } from './error-msg/error-msg.component';
 
 @NgModule({
   declarations: [
     CampoControlErrorComponent,
-    FormDebugComponent
+    FormDebugComponent,
+    ErrorMsgComponent
   ],
   exports: [
     CampoControlErrorComponent,
-    FormDebugComponent
+    FormDebugComponent,
+    ErrorMsgComponent
   ],
   imports: [
     CommonModule,

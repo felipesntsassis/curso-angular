@@ -42,7 +42,7 @@ export class DataFormComponent implements OnInit {
     this.newsLetterOp = this.dropdownService.getNewsLetter();
 
     this.formulario = this.formBuilder.group({
-      nome: ['', Validators.required],
+      nome: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
       email: ['', [Validators.required, Validators.email], [this.verificarEmail.bind(this)]],
       confirmarEmail: ['', [Validators.required, Validators.email, FormValidations.equalsTo('email')]],
       endereco: this.formBuilder.group({
