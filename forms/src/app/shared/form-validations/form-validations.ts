@@ -26,13 +26,15 @@ export class FormValidations {
   }
 
   static cepValidator(control: FormControl) {
-    let cep = control.value;
-    cep = cep.replace(/\D/g, '');
+    if (control && control.value) {
+      let cep = control.value;
+      cep = cep.replace(/\D/g, '');
 
-    if (cep && cep !== '') {
-      const validaCep = /^[0-9]{8}$/;
+      if (cep && cep !== '') {
+        const validaCep = /^[0-9]{8}$/;
 
-      return validaCep.test(cep) ? null : { cepInvalido: true };
+        return validaCep.test(cep) ? null : { cepInvalido: true };
+      }
     }
     return null;
   }
