@@ -1,25 +1,30 @@
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+
 import { FormDebugComponent } from './form-debug/form-debug.component';
 import { CampoControlErrorComponent } from './campo-control-error/campo-control-error.component';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DropdownService } from './services/dropdown.service';
 import { ErrorMsgComponent } from './error-msg/error-msg.component';
+import { InputFieldComponent } from './input-field/input-field.component';
 
 @NgModule({
   declarations: [
     CampoControlErrorComponent,
+    ErrorMsgComponent,
     FormDebugComponent,
-    ErrorMsgComponent
+    InputFieldComponent
   ],
   exports: [
     CampoControlErrorComponent,
+    ErrorMsgComponent,
     FormDebugComponent,
-    ErrorMsgComponent
+    InputFieldComponent
   ],
   imports: [
     CommonModule,
-    HttpClientModule
+    FormsModule,
+    HttpClientModule,
   ]
 })
 export class SharedModule { }
