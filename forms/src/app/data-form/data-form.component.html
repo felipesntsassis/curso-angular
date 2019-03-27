@@ -99,8 +99,11 @@
       </div>
       <div class="col-md-4">
         <label for="cidade" class="col-form-label">Cidade</label>
-        <input type="text" id="cidade" formControlName="cidade" class="form-control"
-          [ngClass]="aplicaErroCssCampo('endereco.cidade')">
+        <select id="cidade" formControlName="cidade" class="form-control" [ngClass]="aplicaErroCssCampo('endereco.cidade')">
+          <option *ngFor="let cidade of cidades" [value]="cidade.nome">{{ cidade.nome }}</option>
+        </select>
+        <!-- <input type="text" id="cidade" formControlName="cidade" class="form-control"
+          [ngClass]="aplicaErroCssCampo('endereco.cidade')"> -->
         <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
         </app-error-msg>
         <!-- <app-campo-control-error [mostrarErro]="verificaValidTouched('endereco.cidade')" msgErro="Cidade é obrigatório.">
@@ -109,7 +112,7 @@
       <div class="col-md-3">
         <label for="estado" class="col-form-label">Estado</label>
         <select id="estado" formControlName="estado" class="form-control" [ngClass]="aplicaErroCssCampo('endereco.estado')">
-          <option *ngFor="let estado of estados | async" [value]="estado.sigla">{{ estado.nome }}</option>
+          <option *ngFor="let estado of estados" [value]="estado.sigla">{{ estado.nome }}</option>
         </select>
         <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado">
         </app-error-msg>
