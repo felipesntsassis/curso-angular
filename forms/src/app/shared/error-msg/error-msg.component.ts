@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { controlNameBinding } from '@angular/forms/src/directives/reactive_directives/form_control_name';
 import { FormValidations } from '../form-validations/form-validations';
 
 @Component({
@@ -27,6 +26,7 @@ export class ErrorMsgComponent implements OnInit {
           return FormValidations.getErrorMsg(this.label, propertyName, this.control.errors[propertyName]);
       }
     }
+
     return null;
   }
 
