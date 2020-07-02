@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-// import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
@@ -10,6 +10,7 @@ import { Curso } from '../curso';
 
 // import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
+import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -22,11 +23,16 @@ export class CursosListaComponent implements OnInit {
   // cursos: Curso[];
   // bsModalRef: BsModalRef;
 
+  @ViewChild('deleteModal') deleteModal;
+
+  cursoSelecionado: Curso;
+  deleteModalRef: BsModalRef;
+
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
 
   constructor(
-    // private modalService: BsModalService,
+    private modalService: BsModalService,
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertModalService,
@@ -36,6 +42,29 @@ export class CursosListaComponent implements OnInit {
   ngOnInit(): void {
     // this.service.list().subscribe(cursos => this.cursos = cursos);
     this.onRefresh();
+  }
+
+  onConfirmDelete() {
+    this.service.remove(this.cursoSelecionado.id).subscribe(
+      success => {
+        this.deleteModalRef.hide();
+        this.alertService.showAlertSuccess('Curso removido com sucesso!');
+        this.onRefresh();
+      },
+      error => {
+        this.deleteModalRef.hide();
+        this.alertService.showAlertDanger('Erro ao remover o curso. Tente novamente mais tarde.');
+      }
+    );
+  }
+
+  onDeclineDelete() {
+    this.deleteModalRef.hide();
+  }
+
+  onDelete(curso: Curso) {
+    this.cursoSelecionado = curso;
+    this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
   }
 
   onEdit(id: number) {
