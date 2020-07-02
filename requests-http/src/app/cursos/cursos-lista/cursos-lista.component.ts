@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 // import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable, EMPTY, Subject } from 'rxjs';
@@ -9,6 +10,7 @@ import { Curso } from '../curso';
 
 // import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
+
 
 @Component({
   templateUrl: './cursos-lista.component.html',
@@ -25,6 +27,8 @@ export class CursosListaComponent implements OnInit {
 
   constructor(
     // private modalService: BsModalService,
+    private router: Router,
+    private route: ActivatedRoute,
     private alertService: AlertModalService,
     private service: CursosService
   ) { }
@@ -32,6 +36,10 @@ export class CursosListaComponent implements OnInit {
   ngOnInit(): void {
     // this.service.list().subscribe(cursos => this.cursos = cursos);
     this.onRefresh();
+  }
+
+  onEdit(id: number) {
+    this.router.navigate(['editar', id], { relativeTo: this.route });
   }
 
   onRefresh() {

@@ -27,4 +27,8 @@ export class CursosService {
     );
   }
 
+  loadById(id: number) {
+    return this.http.get<Curso>(`${this.API}/${id}`).pipe(take(1));
+  }
+
 }
