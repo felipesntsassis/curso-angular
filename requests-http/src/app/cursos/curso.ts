@@ -1,6 +1,6 @@
 export interface Curso {
 
-  id: number;
+  id?: number;
   nome: string;
 
 }

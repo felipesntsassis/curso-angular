@@ -25,10 +25,6 @@
       "id": 6
     },
     {
-      "nome": "Java Server Faces",
-      "id": 7
-    },
-    {
       "nome": "Ionic Framework",
       "id": 10
     },
@@ -39,6 +35,14 @@
     {
       "id": 13,
       "nome": "Angular Material"
+    },
+    {
+      "id": 14,
+      "nome": "React JS"
+    },
+    {
+      "id": 15,
+      "nome": "React Native"
     }
   ]
 }

@@ -5,7 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable, EMPTY, Subject } from 'rxjs';
 import { catchError, take, switchMap } from 'rxjs/operators';
 
-import { CursosService } from '../cursos.service';
+import { Cursos2Service } from '../cursos2.service';
 import { Curso } from '../curso';
 
 // import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
@@ -35,7 +35,7 @@ export class CursosListaComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private alertService: AlertModalService,
-    private service: CursosService
+    private service: Cursos2Service
   ) { }
 
   ngOnInit(): void {
