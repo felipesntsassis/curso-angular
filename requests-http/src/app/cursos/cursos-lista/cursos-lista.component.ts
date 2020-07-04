@@ -3,14 +3,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Observable, EMPTY, Subject } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, take, switchMap } from 'rxjs/operators';
 
 import { CursosService } from '../cursos.service';
 import { Curso } from '../curso';
 
 // import { AlertModalComponent } from 'src/app/shared/alert-modal/alert-modal.component';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
-import { ThrowStmt } from '@angular/compiler';
 
 
 @Component({
@@ -64,7 +63,17 @@ export class CursosListaComponent implements OnInit {
 
   onDelete(curso: Curso) {
     this.cursoSelecionado = curso;
-    this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
+    // this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
+    const result$ = this.alertService.showConfirm('Confirmação', 'Tem certeza que deseja remover esse curso?', 'Sim', 'Não');
+    result$.asObservable().pipe(
+      take(1),
+      switchMap(result => result ? this.service.remove(curso.id) : EMPTY)
+    ).subscribe(success => {
+      this.onRefresh();
+    },
+      error => {
+        this.alertService.showAlertDanger('Erro ao remover o curso. Tente novamente mais tarde.');
+    });
   }
 
   onEdit(id: number) {
