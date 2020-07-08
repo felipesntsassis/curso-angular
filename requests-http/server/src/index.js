@@ -14,10 +14,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(cors(corsOptions));
 
 const multipartMiddleware = multipart({ uploadDir: './uploads' });
+
 app.post('/upload', multipartMiddleware, (req, resp) => {
   const files = req.files;
   console.log(files);
   resp.json({ message: files });
+});
+
+app.get('/downloadCalc', (req, resp) => {
+  resp.download('./uploads/report.ods');
+});
+
+app.get('/downloadPdf', (req, resp) => {
+  resp.download('./uploads/report.pdf');
 });
 
 app.use((err, req, resp, next) => {

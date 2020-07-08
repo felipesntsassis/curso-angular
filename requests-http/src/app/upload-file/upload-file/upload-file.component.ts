@@ -45,6 +45,20 @@ export class UploadFileComponent implements OnInit, OnDestroy {
     this.progress = 0;
   }
 
+  onDownloadCalc() {
+    this.service.download(`${environment.BASE_URL}/downloadCalc`).subscribe(
+      (resp: any) => {
+        this.service.handleFile(resp, 'report.ods');
+      });
+  }
+
+  onDownloadPdf() {
+    this.service.download(`${environment.BASE_URL}/downloadPdf`).subscribe(
+      (resp: any) => {
+        this.service.handleFile(resp, 'report.pdf');
+    });
+  }
+
   onUpload() {
     if (this.files && this.files.size > 0) {
       this.upload$ = this.service.upload(this.files, `${environment.BASE_URL}/upload`)
