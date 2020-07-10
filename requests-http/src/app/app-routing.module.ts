@@ -4,7 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '', pathMatch: 'full', redirectTo: 'upload'
+    path: '', pathMatch: 'full', redirectTo: 'pesquisa-reativa'
+  },
+  {
+    path: 'busca-reativa',
+    loadChildren: () => import('./reactive-search/reactive-search.module').then(mod => mod.ReactiveSearchModule)
   },
   {
     path: 'cursos',
@@ -17,7 +21,7 @@ const routes: Routes = [
   {
     path: 'upload',
     loadChildren: () => import('./upload-file/upload-file.module').then(mod => mod.UploadFileModule)
-  },
+  }
 ];
 
 @NgModule({
