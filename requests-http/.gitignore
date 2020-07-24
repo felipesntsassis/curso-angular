@@ -48,3 +48,6 @@ Thumbs.db
 # Node
 /server/node_modules
 /server/uploads
+
+# Firebase
+.firebase/

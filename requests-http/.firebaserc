@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "curso-angular-felipe-f1c3b": {
+      "hosting": {
+        "requests-http": [
+          "curso-angular-felipe-f1c3b"
+        ]
+      }
+    }
+  }
+}
